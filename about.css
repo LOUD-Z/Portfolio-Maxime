@@ -1,0 +1,190 @@
+/* --- Reset & Base --- */
+body {
+  margin: 0;
+  background: black url('moi/fond etoilee.png') no-repeat center center/cover;
+  color: white;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* --- SECTION ABOUT --- */
+.about-section {
+  min-height: 100vh;            /* occupe toute la hauteur de l’écran */
+  display: flex;
+  flex-direction: column;       /* empile contenu + bandeau */
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+  box-sizing: border-box;
+}
+
+.about-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  max-width: 1200px;
+  width: 100%;
+  text-align: left;
+  position: relative;   
+  min-height: 80vh;   /* 🔥 empêche le débordement du texte */
+}
+
+/* Personnage */
+.character {
+  position: relative;
+  width: 400px;                  /* Base desktop */
+  animation: float 5s ease-in-out infinite;
+  z-index: 1;                    
+}
+
+.personnage {
+  width: 100%;
+}
+
+.stylus {
+  position: absolute;
+  top: -50px;          
+  left: 50%;           
+  transform: translateX(-50%) rotate(0deg);
+  width: 600px;
+  transform-origin: center bottom;  
+  animation: swing 4s ease-in-out infinite;
+}
+
+/* Texte */
+.about-text {
+  max-width: 600px;
+  z-index: 2; 
+}
+
+.about-text h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.about-text p {
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.about-text a {
+  display: inline-block;
+  margin-top: 20px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-bottom: 2px solid white;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes swing {
+  0%   { transform: translateX(-50%) rotate(0deg); }
+  25%  { transform: translateX(-50%) rotate(5deg); }
+  50%  { transform: translateX(-50%) rotate(0deg); }
+  75%  { transform: translateX(-50%) rotate(-5deg); }
+  100% { transform: translateX(-50%) rotate(0deg); }
+}
+
+/* --- Bandeau Logos --- */
+.logo-bar {
+  width: 100%;
+  background: transparent; /* rouge transparent */
+  overflow: hidden;
+  height: 90px;
+  display: flex;
+  align-items: left;
+  margin-top: 40px;
+}
+
+.logo-track {
+  display: flex;
+  width: max-content;
+  animation: scroll 20s linear infinite;
+}
+
+.logo-track img {
+  height: 70px;
+  margin: 0 30px;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+  .about-container {
+    gap: 30px;
+  }
+  .character {
+    width: 450px;  /* 🔥 plus grand */
+  }
+  .about-text h1 {
+    font-size: 2em;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .character {
+    width: 500px;   /* 🔥 encore plus grand */
+    position: relative;
+    z-index: 1;
+  }
+
+  .about-text {
+    position: relative;
+    margin-top: -120px;     /* remonte le texte sur la moitié basse du perso */
+    background: rgba(0,0,0,0.5); 
+    padding: 15px;
+    border-radius: 10px;
+    max-width: 90%;
+    z-index: 2;
+  }
+
+  .logo-bar {
+    position: relative;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;  
+    align-items: center;
+    height: auto;
+    background: transparent;  
+  }
+
+  .logo-track {
+    animation: scroll 15s linear infinite;
+  }
+}
+
+@media (max-width: 480px) {
+  .character {
+    width: 550px;   /* 🔥 super grand sur mobile */
+  }
+  .about-text h1 {
+    font-size: 1.6em;
+  }
+  .about-text p {
+    font-size: 0.9em;
+  }
+  .logo-bar {
+    height: 70px;
+  }
+  .logo-track img {
+    height: 50px;
+    margin: 0 15px;
+  }
+}

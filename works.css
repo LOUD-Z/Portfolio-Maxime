@@ -1,0 +1,241 @@
+/* works.css - Style pour le menu vertical */
+
+.works-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: black url('moi/fond etoilee.png') no-repeat center center/cover;
+  position: relative;
+  padding: 50px 20px;
+}
+
+.works-menu-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.works-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 60px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards;
+  position: relative;
+  display: inline-block;
+}
+
+
+
+.works-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.works-item {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  text-decoration: none;
+  color: white;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s ease;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.6s ease forwards;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animation différée pour chaque élément */
+.works-item:nth-child(1) { animation-delay: 0.2s; }
+.works-item:nth-child(2) { animation-delay: 0.4s; }
+.works-item:nth-child(3) { animation-delay: 0.6s; }
+.works-item:nth-child(4) { animation-delay: 0.8s; }
+.works-item:nth-child(5) { animation-delay: 1s; }
+
+.works-number {
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 2px;
+  min-width: 60px;
+  transition: all 0.3s ease;
+}
+
+.works-name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Effet de survol */
+.works-item:hover {
+  border-bottom-color: #ffffff;
+  transform: translateX(20px);
+  padding-left: 20px;
+}
+
+.works-item:hover .works-number {
+  color: #feca57;
+  transform: scale(1.1);
+}
+
+.works-item:hover .works-name {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+}
+
+/* Effet de brillance au survol */
+.works-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.works-item:hover::before {
+  left: 100%;
+}
+
+/* Animation d'entrée */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Style responsive */
+@media (max-width: 768px) {
+  .works-title {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+  }
+  
+  .works-item {
+    gap: 20px;
+  }
+  
+  .works-number {
+    font-size: 1rem;
+    min-width: 45px;
+  }
+  
+  .works-name {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .works-title {
+    font-size: 2rem;
+  }
+  
+  .works-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  
+  .works-number {
+    font-size: 0.9rem;
+  }
+  
+  .works-name {
+    font-size: 1.2rem;
+  }
+  
+  .works-item:hover {
+    transform: translateX(10px);
+  }
+}
+
+/* Option : Effet de hover avec image d'arrière-plan */
+.works-section {
+  position: relative;
+}
+
+.works-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 0;
+}
+
+.works-menu-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ajoutez ceci pour un effet d'image au survol */
+.works-item {
+  position: relative;
+  z-index: 2;
+}
+
+.works-item::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  width: 150px;
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: translateY(-50%) scale(0.8);
+  transition: all 0.4s ease;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  pointer-events: none;
+  z-index: -1;
+}
+
+#item-fashion:hover::after {
+  content: '';
+  background-image: url('image menu /fashion.png');
+  opacity: 0.3;
+  transform: translateY(-50%) scale(1);
+  right: 5%;
+}
+
+#item-charadesign:hover::after {
+  content: '';
+  background-image: url('image menu /Illustration_sans_titre 2.png');
+  opacity: 0.3;
+  transform: translateY(-50%) scale(1);
+  right: 5%;
+}
+
+#item-shooting:hover::after {
+  content: '';
+  background-image: url('image menu /shuting.png');
+  opacity: 0.3;
+  transform: translateY(-50%) scale(1);
+  right: 5%;
+}
+
