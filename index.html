@@ -17,14 +17,112 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 
+<!-- Script pour le carrousel dynamique -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Configuration du carrousel
+  const slides = document.querySelectorAll('.carousel-slide');
+  const indicators = document.querySelectorAll('.indicator');
+  let currentSlide = 0;
+  const slideInterval = 5000; // 5 secondes
+  let intervalId;
+  
+  // Fonction pour changer de slide
+  function goToSlide(index) {
+    if (index < 0) index = slides.length - 1;
+    if (index >= slides.length) index = 0;
+    
+    // Mettre à jour les slides
+    slides.forEach(slide => slide.classList.remove('active'));
+    slides[index].classList.add('active');
+    
+    // Mettre à jour les indicateurs
+    indicators.forEach(indicator => indicator.classList.remove('active'));
+    indicators[index].classList.add('active');
+    
+    currentSlide = index;
+  }
+  
+  // Fonction pour passer à la slide suivante
+  function nextSlide() {
+    goToSlide(currentSlide + 1);
+  }
+  
+  // Démarrer le carrousel automatique
+  function startCarousel() {
+    stopCarousel();
+    intervalId = setInterval(nextSlide, slideInterval);
+  }
+  
+  // Arrêter le carrousel automatique
+  function stopCarousel() {
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+  }
+  
+  // Ajouter les événements aux indicateurs
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => {
+      goToSlide(index);
+      stopCarousel();
+      startCarousel(); // Redémarrer après clic
+    });
+    
+    // Pour mobile/tactile
+    indicator.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      goToSlide(index);
+      stopCarousel();
+      startCarousel();
+    });
+  });
+  
+  // Pause au survol (optionnel)
+  const carouselContainer = document.querySelector('.carousel-container');
+  if (carouselContainer) {
+    carouselContainer.addEventListener('mouseenter', stopCarousel);
+    carouselContainer.addEventListener('mouseleave', startCarousel);
+    
+    // Pour mobile
+    carouselContainer.addEventListener('touchstart', stopCarousel);
+    carouselContainer.addEventListener('touchend', startCarousel);
+  }
+  
+  // Démarrer le carrousel
+  startCarousel();
+  
+  // Optionnel : précharger les images pour éviter les flashs
+  function preloadImages() {
+    slides.forEach(slide => {
+      const bgImage = window.getComputedStyle(slide).backgroundImage;
+      const img = new Image();
+      img.src = bgImage.slice(4, -1).replace(/"/g, '');
+    });
+  }
+  preloadImages();
+});
+</script>
+
 <body>
 
-<!-- Section Hero -->
+<!-- Section Hero avec carrousel dynamique -->
 <section class="hero" id="home">
+  <!-- Carrousel d'images dynamique -->
+  <div class="carousel-container">
+    <div class="carousel-slide active" style="background-image: url('moi/Illustration_sans_titre 2.png');"></div>
+    <div class="carousel-slide" style="background-image: url('moi/IMG_1545.jpeg');"></div>
+    <div class="carousel-slide" style="background-image: url('moi/1756341858_Illustration_sans_titre 4.png');"></div>
+    <div class="carousel-slide" style="background-image: url('moi/68af3625328fa.jpg');"></div>
+    <div class="carousel-slide" style="background-image: url('moi/Page_8-9.png');"></div>
+  </div>
+
+  <!-- Overlay (gardé pour la cohérence) -->
   <div class="overlay"></div>
 
-  <!-- Navbar -->
+  <!-- Navbar (inchangée) -->
   <header class="navbar">
+    <!-- ... Votre navbar existante ... -->
     <div class="logo">
       <img src="logo moi/Logo navbar.png" alt="Maxime Kakiese Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
       <span class="logo-text">MK</span>
@@ -43,18 +141,22 @@
     </div>
   </header>
 
-  <!-- Contenu principal de la bannière -->
+  <!-- Indicateurs du carrousel -->
+  <div class="carousel-indicators">
+    <div class="indicator active" data-slide="0"></div>
+    <div class="indicator" data-slide="1"></div>
+    <div class="indicator" data-slide="2"></div>
+    <div class="indicator" data-slide="3"></div>
+     <div class="indicator" data-slide="4"></div>
+  </div>
+
+  <!-- Contenu principal de la bannière (inchangé) -->
   <div class="hero-content">
-    <!-- Texte "PORTFOLIO" en haut avec animation -->
     <div class="hero-supra">PORTFOLIO</div>
-    
-    <!-- Nom principal avec animation -->
     <div class="hero-name-container">
       <div class="first-name">MAXIME</div>
       <div class="last-name">KAKIESE</div>
     </div>
-    
-    <!-- Titres avec animation -->
     <div class="hero-titles">
       <div class="title-item" id="title1">STYLISTE</div>
       <div class="title-item" id="title2">INFOGRAPHISTE</div>
@@ -62,7 +164,7 @@
     </div>
   </div>
   
-  <!-- Bouton scroll -->
+  <!-- Bouton scroll (inchangé) -->
   <div class="scroll-indicator">
     <div class="scroll-btn">
       <span class="scroll-arrow">↓</span>
@@ -170,17 +272,17 @@ if (shinyBtn) {
     
     <!-- Menu vertical -->
     <div class="works-menu">
-      <a href="https://galerie-scolaire-mq0j1orfd-nganzemaxime-7551s-projects.vercel.app/" class="works-item" id="item-fashion">
+      <a href="fashion.html" class="works-item" id="item-fashion">
         <span class="works-number">01</span>
         <span class="works-name"> SCHOOL PROJECTs</span>
       </a>
       
-      <a href="https://galerie-dessin-3cbs10uhy-nganzemaxime-7551s-projects.vercel.app/" class="works-item" id="item-charadesign">
+      <a href="https://galerie-dessin.vercel.app/" class="works-item" id="item-charadesign">
         <span class="works-number">02</span>
         <span class="works-name">CHARADESIGN</span>
       </a>
       
-      <a href="https://galerie-shoot-19yaotv1w-nganzemaxime-7551s-projects.vercel.app/" class="works-item" id="item-shooting">
+      <a href="shooting.html" class="works-item" id="item-shooting">
         <span class="works-number">03</span>
         <span class="works-name">SHOOTING</span>
       </a>
@@ -371,7 +473,7 @@ if (shinyBtn) {
   </div>
   <div class="content">
     <div>
-      <div><b>Portfolio</b><a href="#">Maxime Kakiese</a>
+      <div><b>Portfolio</b><a href="#">Maxime Kakiese</a><a href="#">SCHOOL PROJECTS</a><a href="#">CHARADESIGN</a><a href="#">SHOOTING</a><a href="#">3D PROJECTS</a>
     </div>
     <div><a class="image" href="https://codepen.io/z-" target="_blank" style="background-image: url(&quot;https://s3-us-west-2.amazonaws.com/s.cdpn.io/199011/happy.svg&quot;)"></a>
       <p>©2024 MAXIMUS.PRIME</p>
@@ -511,6 +613,38 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 
+<!-- Script pour le bouton scroll -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const scrollBtn = document.querySelector('.scroll-indicator');
+  const aboutSection = document.getElementById('about');
+  
+  if (scrollBtn && aboutSection) {
+    // Fonction pour scroller vers la section about
+    function scrollToAbout() {
+      const navbarHeight = document.querySelector('.navbar').offsetHeight;
+      const aboutPosition = aboutSection.offsetTop - navbarHeight;
+      
+      window.scrollTo({
+        top: aboutPosition,
+        behavior: 'smooth'
+      });
+    }
+    
+    // Ajouter l'événement click
+    scrollBtn.addEventListener('click', scrollToAbout);
+    
+    // Pour mobile (touch)
+    scrollBtn.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      scrollToAbout();
+    });
+    
+    // Ajouter un effet de survol (optionnel)
+    scrollBtn.style.cursor = 'pointer';
+  }
+});
+</script>
 
 
 
@@ -526,3 +660,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+
